@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    #@comment = Comment.find(params[:id])
+    
     Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
     redirect_to :back, notice: "Your vote was recorded!"
   end
