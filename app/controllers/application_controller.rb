@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :show_arrows
 
   def require_user
     unless logged_in?
@@ -22,4 +22,5 @@ class ApplicationController < ActionController::Base
     flash[:error] = "You can't do that"
     redirect_to root_path
   end
+
 end
