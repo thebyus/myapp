@@ -39,8 +39,13 @@ class PostsController < ApplicationController
   end
 
   def vote
-    Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
-    redirect_to :back, notice: "You're vote was recorded!"
+    if current_user.already_voted_on? @post
+      flash[:error] = "You can only vote once!"
+      redirect_to :back 
+    else
+      Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+      redirect_to :back, notice: "You're vote was recorded!"
+    end
   end
 
 
