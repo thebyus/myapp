@@ -44,7 +44,13 @@ class PostsController < ApplicationController
       redirect_to :back 
     else
       Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
-      redirect_to :back, notice: "You're vote was recorded!"
+
+      respond_to do |format|
+        format.html do
+          redirect_to :back, notice: "You're vote was recorded!"
+        end
+        format.js
+      end
     end
   end
 

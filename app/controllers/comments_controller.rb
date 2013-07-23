@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :require_user
+  before_action :set_comment, only:[:vote]
 
   def create
     @post = Post.find params[:post_id]
@@ -15,7 +16,6 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    @comment = Comment.find(params[:id])
     if current_user.already_voted_on? @comment
       flash[:error] = "You can only vote once!"
       redirect_to :back
@@ -25,5 +25,9 @@ class CommentsController < ApplicationController
     end
   end
 
+  private
 
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
 end
