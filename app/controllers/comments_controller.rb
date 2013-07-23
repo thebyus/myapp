@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only:[:vote]
 
   def create
-    @post = Post.find params[:post_id]
+    @post = Post.find(params[:post_id])
     @comment = @post.comments.build(params.require(:comment).permit(:body))
     @comment.creator = current_user
 
@@ -21,7 +21,13 @@ class CommentsController < ApplicationController
       redirect_to :back
     else
       Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
-      redirect_to :back, notice: "Your vote was recorded!"
+      
+      respond_to do |format|
+        format.html do
+          redirect_to :back, notice: "You're vote was recorded!"
+        end
+        format.js
+      end
     end
   end
 
