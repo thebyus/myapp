@@ -13,8 +13,18 @@ class User < ActiveRecord::Base
     on: :create,
     length: { minimum: 5 }
 
+    after_validation :generate_slug
+
   def already_voted_on?(obj)
     self.votes.where(voteable: obj).size > 0
+  end
+
+  def generate_slug
+    self.slug = self.username.gsub(' ', '-').downcase
+  end
+
+  def to_param
+    self.slug
   end
 
 end

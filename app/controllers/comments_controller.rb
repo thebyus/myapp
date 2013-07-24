@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only:[:vote]
 
   def create
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by slug: (params[:post_id])
     @comment = @post.comments.build(params.require(:comment).permit(:body))
     @comment.creator = current_user
 
@@ -34,6 +34,6 @@ class CommentsController < ApplicationController
   private
 
   def set_comment
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find (params[:id])
   end
 end
