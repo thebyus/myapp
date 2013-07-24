@@ -20,6 +20,10 @@
   <div class='span8 well'>
     <%= render post.categories %>
     <h4><%= link_to post.title, post_path(post) %></h4>
+    <h5>
+      Link: <%= link_to(post.url, fix_url(post.url)) %>
+    </h5>
+    <br>
     <p>
       <%= post.description %>
     </p>
