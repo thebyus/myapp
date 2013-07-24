@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :logged_in?
 
+  def require_admin
+    access_denied unless current_user && current_user.admin?
+   end
+  
+
   def require_user
     unless logged_in?
       flash[:error] = "Must be logged in to do that."

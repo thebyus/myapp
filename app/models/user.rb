@@ -27,4 +27,8 @@ class User < ActiveRecord::Base
     self.slug
   end
 
+  def admin?
+    self.role == 'admin'
+    
+  end
 end
