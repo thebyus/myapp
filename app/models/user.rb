@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Slugify 
+  
   has_many :posts
   has_many :comments
   has_many :votes
@@ -17,14 +19,6 @@ class User < ActiveRecord::Base
 
   def already_voted_on?(obj)
     self.votes.where(voteable: obj).size > 0
-  end
-
-  def generate_slug
-    self.slug = self.username.gsub(' ', '-').downcase
-  end
-
-  def to_param
-    self.slug
   end
 
   def admin?
