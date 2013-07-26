@@ -5,23 +5,17 @@ module Slugify
   end
 
 	module InstanceMethods
-  	
+
+    def generate_slug
+      self.slug = self.username.gsub(' ', '-')
+    end
+
+
   	def to_param
   	  self.slug
   	end
 
-    def generate_slug
-      str = to_slug(self.(:title or :username or :name))
-      count = 2
-      obj = Post.where(slug: str).first
-      while obj && obj != self
-        str = str + "-" + count.to_s
-        obj = Post.where(slug: str).first
-        count += 1
-      end
-      self.slug = str.downcase
-      end
- 
+=begin
     def to_slug(name)
       #strip the string
       ret = name.strip
@@ -44,7 +38,19 @@ module Slugify
  
       ret
     end
-  
-  end
 
+
+    def generate_slug
+      str = to_slug(self.username)
+      count = 2
+      obj = Post.where(slug: str).first
+      while obj && obj != self
+        str = str + "-" + count.to_s
+        obj = Post.where(slug: str).first
+        count += 1
+      end
+      self.slug = str.downcase
+      end
+=end
+  end
 end
