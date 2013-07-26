@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include Slugify 
+ # include Slugify 
   
   has_many :posts
   has_many :comments
@@ -23,6 +23,13 @@ class User < ActiveRecord::Base
 
   def admin?
     self.role == 'admin'
-    
+  end
+
+  def generate_slug
+    self.slug = self.username.gsub(' ', '-')
+  end
+
+  def to_param
+    self.slug
   end
 end

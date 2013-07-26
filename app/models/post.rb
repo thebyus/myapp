@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   include Voteable
-  include Slugify
+  #include Slugify
 
   belongs_to :creator, class_name: 'User', foreign_key: :user_id
   has_many :comments
@@ -14,7 +14,14 @@ class Post < ActiveRecord::Base
 
   after_validation :generate_slug
 
+  def generate_slug
+    self.slug = self.username.gsub(' ', '-')
+  end
 
+
+  def to_param
+    self.slug
+  end
 
 
 end
