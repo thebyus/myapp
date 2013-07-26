@@ -1,7 +1,7 @@
 <%= render 'shared/content_title', title: 'All Posts' %>
 
-
+<% if @posts %>
 	<%	@posts.each do |post| %>
   	<%= render 'post', post: post %>
 	<% end %>
-
+<% end %>
