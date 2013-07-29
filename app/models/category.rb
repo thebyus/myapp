@@ -9,7 +9,7 @@ class Category < ActiveRecord::Base
   after_validation :generate_slug
 
   def generate_slug
-  	self.slug = self.username.gsub(' ', '-')
+  	self.slug = self.name.gsub(' ', '-')
   end
 
 
