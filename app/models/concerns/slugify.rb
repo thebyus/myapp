@@ -1,3 +1,4 @@
+=begin
 module Slugify
 
   def to_param
@@ -91,5 +92,6 @@ module Slugify
       end
       self.slug = str.downcase
       end
-=end
+
 end
+=end

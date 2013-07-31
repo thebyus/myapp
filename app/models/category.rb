@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  include Slugify
+  include Slugifyeobrien
 
   has_many :post_categories
   has_many :posts, through: :post_categories
