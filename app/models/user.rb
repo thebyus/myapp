@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
- # include Slugify 
+  include Slugify 
   
   has_many :posts
   has_many :comments
@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
     on: :create,
     length: { minimum: 5 }
 
-    after_validation :generate_slug
+    after_validation :slug_this
 
   def already_voted_on?(obj)
     self.votes.where(voteable: obj).size > 0
@@ -25,11 +25,18 @@ class User < ActiveRecord::Base
     self.role == 'admin'
   end
 
+=begin
   def generate_slug
     self.slug = self.username.gsub(' ', '-')
   end
 
   def to_param
     self.slug
+  end
+=end
+
+
+  def slug_this
+   generate_slug(Category, self.username)
   end
 end

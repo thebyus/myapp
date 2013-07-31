@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   include Voteable
-  #include Slugify
+  include Slugify
 
   belongs_to :creator, class_name: 'User', foreign_key: :user_id
   has_many :comments
@@ -10,11 +10,16 @@ class Post < ActiveRecord::Base
 
   validates :title, presence: true, length: {minimum: 5}
   validates :description, presence: true
-  validates :url, presence: true, uniqueness: true
+  validates :url, presence: true
 
-  after_validation :generate_slug
+  after_validation :slug_this
 
-  def generate_slug
+  def slug_this
+   generate_slug(Category, self.title)
+  end
+
+
+=begin  def generate_slug
     self.slug = self.title.gsub(' ', '-')
   end
 
@@ -22,6 +27,6 @@ class Post < ActiveRecord::Base
   def to_param
     self.slug
   end
-
+=end
 
 end
